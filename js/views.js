@@ -134,6 +134,14 @@ function showAlbumRating(albumIndex) {
   const album = artist.albums[albumIndex];
 
   /*
+    Old albums do not have a cover art rating yet.
+    Keep it blank until the user rates the cover.
+  */
+  if (album.coverArtRating === undefined) {
+    album.coverArtRating = "";
+  }
+
+  /*
     This makes old albums created before the skit
     feature still work.
   */
@@ -400,26 +408,8 @@ function updateAlbumStats() {
   const statsBox =
     document.getElementById("albumStats");
 
-
-
-  if (stats.ratedCount === 0) {
-
-    statsBox.innerHTML = `
-      <div class="album-stats">
-
-        <h2>Album Score</h2>
-
-        <p>
-          Start rating songs to calculate the score.
-        </p>
-
-      </div>
-    `;
-
-    return;
-  }
-
-
+  const coverArtValue =
+    album.coverArtRating ?? "";
 
   const finalDisplay =
     stats.complete
@@ -436,7 +426,11 @@ function updateAlbumStats() {
 
       <div class="stat-row">
         <span>Song Average</span>
-        <strong>${stats.songAverage.toFixed(2)}</strong>
+        <strong>
+          ${stats.ratedCount > 0
+            ? stats.songAverage.toFixed(2)
+            : "—"}
+        </strong>
       </div>
 
       <div class="stat-row">
@@ -471,6 +465,19 @@ function updateAlbumStats() {
         <strong>${stats.lengthScore.toFixed(2)}</strong>
       </div>
 
+      <div class="stat-row">
+        <span>Cover Art</span>
+        <input
+          id="coverArtRatingInput"
+          class="rating-input cover-art-rating-input"
+          type="text"
+          inputmode="decimal"
+          placeholder="0-10"
+          value="${coverArtValue}"
+          aria-label="Cover art rating"
+        >
+      </div>
+
       <div class="final-score">
         <span>Final Score</span>
         <span>${finalDisplay}</span>
@@ -478,11 +485,57 @@ function updateAlbumStats() {
 
       <div class="score-note">
         S = 11/10 • Ideal length = 14 tracks<br>
-        Final = 85% song average + 15% length score
+        Final = 90% song average + 5% length + 5% cover art
       </div>
 
     </div>
 
   `;
+
+
+
+  const coverArtInput =
+    document.getElementById("coverArtRatingInput");
+
+  coverArtInput.addEventListener("change", () => {
+
+    const value =
+      coverArtInput.value.trim();
+
+    if (value === "") {
+
+      album.coverArtRating = "";
+
+      saveData();
+      updateAlbumStats();
+
+      return;
+    }
+
+    const number = Number(value);
+
+    if (
+      Number.isNaN(number) ||
+      number < 0 ||
+      number > 10
+    ) {
+
+      alert(
+        "Enter a cover art rating from 0 to 10."
+      );
+
+      coverArtInput.value =
+        album.coverArtRating ?? "";
+
+      return;
+    }
+
+    album.coverArtRating = number;
+    coverArtInput.value = number;
+
+    saveData();
+    updateAlbumStats();
+
+  });
 
 }

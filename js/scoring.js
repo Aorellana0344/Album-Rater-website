@@ -151,26 +151,39 @@ function calculateAlbumScore(album) {
 
 
 
-  /*
-    Don't allow the length score
-    to fall below zero.
-  */
-
   lengthScore =
     Math.max(0, lengthScore);
 
 
 
+  const coverArtValue =
+    album.coverArtRating;
+
+  const hasCoverArtRating =
+    coverArtValue !== "" &&
+    coverArtValue !== null &&
+    coverArtValue !== undefined &&
+    !Number.isNaN(Number(coverArtValue));
+
+  const coverArtRating =
+    hasCoverArtRating
+      ? Number(coverArtValue)
+      : 0;
+
+
+
   const finalScore =
-    (songAverage * 0.85) +
-    (lengthScore * 0.15);
+    (songAverage * 0.90) +
+    (lengthScore * 0.05) +
+    (coverArtRating * 0.05);
 
 
 
   const complete =
     ratedSongs.length ===
     eligibleSongs.length &&
-    eligibleSongs.length > 0;
+    eligibleSongs.length > 0 &&
+    hasCoverArtRating;
 
 
 
@@ -181,6 +194,10 @@ function calculateAlbumScore(album) {
     finalScore: finalScore,
 
     lengthScore: lengthScore,
+
+    coverArtRating: coverArtRating,
+
+    hasCoverArtRating: hasCoverArtRating,
 
     actualTrackCount: actualTrackCount,
 

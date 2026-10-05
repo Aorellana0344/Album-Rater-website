@@ -127,6 +127,7 @@ document
     artists[currentArtistIndex].albums.push({
       title: albumName,
       image: image,
+      coverArtRating: "",
       songs: songs
     });
 

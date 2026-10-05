@@ -1,4 +1,4 @@
-const CACHE_NAME = "album-rater-v2";
+const CACHE_NAME = "album-rater-v3";
 
 const FILES_TO_CACHE = [
   "./",

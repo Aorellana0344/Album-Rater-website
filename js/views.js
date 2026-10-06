@@ -107,6 +107,10 @@ function hideAllPages() {
   albumPage.classList.add("hidden");
   ratingPage.classList.add("hidden");
   deluxePage.classList.add("hidden");
+
+  document
+    .getElementById("backupSection")
+    ?.classList.add("hidden");
 }
 
 
@@ -116,6 +120,10 @@ function showArtists() {
 
   hideAllPages();
   artistPage.classList.remove("hidden");
+
+  document
+    .getElementById("backupSection")
+    ?.classList.remove("hidden");
 
   backBtn.classList.add("hidden");
   addBtn.classList.remove("hidden");

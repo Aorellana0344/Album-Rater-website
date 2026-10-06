@@ -25,6 +25,40 @@ function getRatingColorClass(value) {
 }
 
 
+function getAlbumScoreColorClass(value) {
+
+  if (value === "" || value === null || value === undefined) {
+    return "";
+  }
+
+  const rating = Number(value);
+
+  if (Number.isNaN(rating)) {
+    return "";
+  }
+
+  if (rating >= 9.5) {
+    return "rating-rainbow";
+  }
+
+  return getRatingColorClass(rating);
+
+}
+
+
+function formatAlbumScore(value, includeStar = false) {
+
+  const rounded = Number(Number(value).toFixed(2));
+
+  if (rounded === 10) {
+    return "PERFECT!";
+  }
+
+  return `${Number(value).toFixed(2)}${includeStar ? " ★" : ""}`;
+
+}
+
+
 function applyRatingColor(element, value) {
 
   element.classList.remove(
@@ -237,7 +271,7 @@ function showAlbums(artistIndex) {
 
     if (score.complete) {
       scoreText = `
-        <p class="rating-value ${getRatingColorClass(score.finalScore)}">${score.finalScore.toFixed(2)} ★</p>
+        <p class="rating-value ${getAlbumScoreColorClass(score.finalScore)}">${formatAlbumScore(score.finalScore, true)}</p>
       `;
     }
 
@@ -565,7 +599,7 @@ function updateAlbumStats() {
 
   const finalDisplay =
     stats.complete
-      ? stats.finalScore.toFixed(2)
+      ? formatAlbumScore(stats.finalScore)
       : "Incomplete";
 
 
@@ -632,7 +666,7 @@ function updateAlbumStats() {
 
       <div class="final-score">
         <span>Final Score</span>
-        <span class="${stats.complete ? getRatingColorClass(stats.finalScore) : ""}">${finalDisplay}</span>
+        <span class="${stats.complete ? getAlbumScoreColorClass(stats.finalScore) : ""}">${finalDisplay}</span>
       </div>
 
       <div class="score-note">

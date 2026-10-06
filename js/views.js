@@ -1,3 +1,51 @@
+function getRatingColorClass(value) {
+
+  if (String(value).trim().toUpperCase() === "S") {
+    return "rating-rainbow";
+  }
+
+  if (value === "" || value === null || value === undefined) {
+    return "";
+  }
+
+  const rating = Number(value);
+
+  if (Number.isNaN(rating)) {
+    return "";
+  }
+
+  if (rating >= 10) return "rating-purple";
+  if (rating > 8) return "rating-blue";
+  if (rating > 6) return "rating-green";
+  if (rating > 4) return "rating-yellow";
+  if (rating > 2) return "rating-orange";
+
+  return "rating-red";
+
+}
+
+
+function applyRatingColor(element, value) {
+
+  element.classList.remove(
+    "rating-red",
+    "rating-orange",
+    "rating-yellow",
+    "rating-green",
+    "rating-blue",
+    "rating-purple",
+    "rating-rainbow"
+  );
+
+  const colorClass = getRatingColorClass(value);
+
+  if (colorClass) {
+    element.classList.add(colorClass);
+  }
+
+}
+
+
 function escapeHtml(value) {
 
   return String(value ?? "")
@@ -112,7 +160,7 @@ function showAlbums(artistIndex) {
                 <span>${escapeHtml(song.albumTitle)}</span>
               </div>
             </div>
-            <span class="top-song-rating">
+            <span class="top-song-rating ${getRatingColorClass(song.rating)}">
               ${escapeHtml(song.rating)}
             </span>
           </div>
@@ -135,7 +183,7 @@ function showAlbums(artistIndex) {
 
         <div class="artist-average">
           <span>Average Album Rating</span>
-          <strong>${averageDisplay}</strong>
+          <strong class="${artistAverage === null ? "" : getRatingColorClass(artistAverage)}">${averageDisplay}</strong>
         </div>
       </div>
 
@@ -189,7 +237,7 @@ function showAlbums(artistIndex) {
 
     if (score.complete) {
       scoreText = `
-        <p>${score.finalScore.toFixed(2)} ★</p>
+        <p class="rating-value ${getRatingColorClass(score.finalScore)}">${score.finalScore.toFixed(2)} ★</p>
       `;
     }
 
@@ -315,7 +363,7 @@ row.innerHTML = `
   </div>
 
       <input
-        class="rating-input"
+        class="rating-input ${getRatingColorClass(song.rating)}"
         type="text"
         inputmode="decimal"
         placeholder="0-10 / S"
@@ -350,6 +398,7 @@ row.innerHTML = `
         song.rating = "";
 
         ratingInput.classList.remove("invalid");
+        applyRatingColor(ratingInput, "");
 
         saveData();
         updateAlbumStats();
@@ -384,6 +433,7 @@ row.innerHTML = `
         ratingInput.value = "S";
 
         ratingInput.classList.remove("invalid");
+        applyRatingColor(ratingInput, "S");
 
         saveData();
         updateAlbumStats();
@@ -417,6 +467,7 @@ row.innerHTML = `
       ratingInput.value = number;
 
       ratingInput.classList.remove("invalid");
+      applyRatingColor(ratingInput, number);
 
       saveData();
       updateAlbumStats();
@@ -527,7 +578,7 @@ function updateAlbumStats() {
 
       <div class="stat-row">
         <span>Song Average</span>
-        <strong>
+        <strong class="${stats.ratedCount > 0 ? getRatingColorClass(stats.songAverage) : ""}">
           ${stats.ratedCount > 0
             ? stats.songAverage.toFixed(2)
             : "—"}
@@ -563,14 +614,14 @@ function updateAlbumStats() {
 
       <div class="stat-row">
         <span>Length Score</span>
-        <strong>${stats.lengthScore.toFixed(2)}</strong>
+        <strong class="${getRatingColorClass(stats.lengthScore)}">${stats.lengthScore.toFixed(2)}</strong>
       </div>
 
       <div class="stat-row">
         <span>Cover Art</span>
         <input
           id="coverArtRatingInput"
-          class="rating-input cover-art-rating-input"
+          class="rating-input cover-art-rating-input ${getRatingColorClass(coverArtValue)}"
           type="text"
           inputmode="decimal"
           placeholder="0-10"
@@ -581,7 +632,7 @@ function updateAlbumStats() {
 
       <div class="final-score">
         <span>Final Score</span>
-        <span>${finalDisplay}</span>
+        <span class="${stats.complete ? getRatingColorClass(stats.finalScore) : ""}">${finalDisplay}</span>
       </div>
 
       <div class="score-note">
@@ -633,6 +684,7 @@ function updateAlbumStats() {
 
     album.coverArtRating = number;
     coverArtInput.value = number;
+    applyRatingColor(coverArtInput, number);
 
     saveData();
     updateAlbumStats();

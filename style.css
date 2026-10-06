@@ -3,16 +3,16 @@
 }
 
 :root {
-  --bg: #f5f5f7;
-  --surface: #ffffff;
-  --surface-2: #eeeeF1;
-  --border: #d1d1d6;
+  --bg: #111214;
+  --surface: #1a1c20;
+  --surface-2: #25282e;
+  --border: #34383f;
 
-  --text: #111113;
-  --muted: #77777f;
+  --text: #f4f4f5;
+  --muted: #9b9ba4;
 
-  --silver: #b6b6bd;
-  --dark-silver: #6d6d73;
+  --silver: #c4c4ca;
+  --dark-silver: #a2a2aa;
 }
 
 html {
@@ -62,7 +62,7 @@ header {
   height: 66px;
   padding: 0 14px;
 
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(17, 18, 20, 0.90);
 
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -162,7 +162,7 @@ main {
 
   border-radius: 14px;
 
-  background: #e6e6e9;
+  background: #24272c;
 
   box-shadow:
     0 3px 12px
@@ -260,7 +260,7 @@ main {
 
   text-align: left;
 
-  background: rgba(255, 255, 255, 0.78);
+  background: rgba(28, 30, 34, 0.88);
 
   border: 1px solid var(--border);
   border-radius: 18px;
@@ -319,7 +319,7 @@ main {
 .score-note {
   margin-top: 12px;
 
-  color: #99999f;
+  color: #85858f;
 
   font-size: 11px;
   line-height: 1.5;
@@ -384,7 +384,7 @@ main {
   width: 15px;
   height: 15px;
 
-  accent-color: #77777f;
+  accent-color: #b0b0b8;
 }
 
 .rating-input {
@@ -397,7 +397,7 @@ main {
 
   outline: none;
 
-  background: white;
+  background: var(--surface);
   color: var(--text);
 
   text-align: center;
@@ -455,7 +455,7 @@ main {
   padding: 22px;
 
   background:
-    rgba(255, 255, 255, 0.96);
+    rgba(26, 28, 32, 0.98);
 
   border: 1px solid var(--border);
 
@@ -499,7 +499,7 @@ main {
 
   border-radius: 12px;
 
-  background: #f7f7f9;
+  background: #202329;
 
   color: var(--text);
 }
@@ -532,7 +532,7 @@ main {
 
   border-radius: 12px;
 
-  background: #e8e8eb;
+  background: #292c32;
 
   color: var(--text);
 
@@ -544,13 +544,13 @@ main {
   background:
     linear-gradient(
       145deg,
-      #f8f8fa,
-      #cfcfd4
+      #3a3e45,
+      #24272c
     );
 
-  border: 1px solid #b9b9bf;
+  border: 1px solid #4a4f58;
 
-  color: #111;
+  color: var(--text);
 }
 
 
@@ -592,9 +592,9 @@ main {
   border-radius: 999px;
 
   background:
-    rgba(255, 255, 255, 0.92);
+    rgba(28, 30, 34, 0.94);
 
-  color: #55555c;
+  color: #b2b2ba;
 
   box-shadow:
     0 3px 12px
@@ -611,7 +611,7 @@ main {
 
 #exportBtn {
   background:
-    rgba(255, 255, 255, 0.92);
+    rgba(28, 30, 34, 0.94);
 }
 
 
@@ -653,11 +653,11 @@ main {
   width: 28px;
   height: 28px;
 
-  border: 1px solid rgba(0,0,0,0.08);
+  border: 1px solid rgba(255,255,255,0.10);
   border-radius: 50%;
 
-  background: rgba(255,255,255,0.88);
-  color: #333;
+  background: rgba(29,31,35,0.94);
+  color: #e6e6e9;
 
   font-size: 16px;
   font-weight: 700;
@@ -687,7 +687,7 @@ main {
   border: 1px solid var(--border);
   border-radius: 10px;
 
-  background: white;
+  background: var(--surface);
   color: var(--text);
 
   font-size: 12px;
@@ -695,9 +695,9 @@ main {
 }
 
 .danger-btn {
-  color: #b42318 !important;
-  border-color: #f1c0bc !important;
-  background: #fff5f4 !important;
+  color: #ff8f87 !important;
+  border-color: #6c3636 !important;
+  background: #321f20 !important;
 }
 
 .song-actions {
@@ -712,7 +712,7 @@ main {
   border: 1px solid var(--border);
   border-radius: 8px;
 
-  background: white;
+  background: var(--surface);
   color: var(--text);
 
   font-size: 10px;
@@ -738,7 +738,7 @@ main {
   aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: 18px;
-  background: #e6e6e9;
+  background: #24272c;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
@@ -746,7 +746,7 @@ main {
   margin-top: 12px;
   padding: 12px 10px;
   text-align: center;
-  background: rgba(255, 255, 255, 0.82);
+  background: rgba(28, 30, 34, 0.90);
   border: 1px solid var(--border);
   border-radius: 14px;
 }
@@ -786,7 +786,7 @@ main {
 
 .artist-profile-description p {
   margin: 0;
-  color: #4f4f56;
+  color: #b8b8c0;
   font-size: 14px;
   line-height: 1.65;
   white-space: pre-line;
@@ -797,7 +797,7 @@ main {
   padding: 7px 10px;
   border: 1px solid var(--border);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.86);
+  background: rgba(35, 38, 43, 0.94);
   color: var(--dark-silver);
   font-size: 10px;
   font-weight: 700;
@@ -832,7 +832,7 @@ main {
   justify-content: space-between;
   gap: 10px;
   padding: 10px 12px;
-  background: rgba(255, 255, 255, 0.78);
+  background: rgba(28, 30, 34, 0.88);
   border: 1px solid var(--border);
   border-radius: 13px;
 }
@@ -847,7 +847,7 @@ main {
 .top-song-rank {
   flex: none;
   width: 18px;
-  color: #a0a0a7;
+  color: #7f8089;
   font-size: 11px;
   font-weight: 700;
   text-align: center;
@@ -892,7 +892,7 @@ main {
   margin: 0;
   padding: 16px;
   color: var(--muted);
-  background: rgba(255, 255, 255, 0.65);
+  background: rgba(28, 30, 34, 0.72);
   border: 1px solid var(--border);
   border-radius: 14px;
   font-size: 13px;

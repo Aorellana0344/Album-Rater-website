@@ -104,15 +104,16 @@ function calculateAlbumScore(album) {
 
   const coverData = getCoverArtData(album);
 
-  const finalScore =
-    (songData.songAverage * 0.93) +
-    (lengthScore * 0.05) +
-    (coverData.coverArtRating * 0.02);
+  const finalScore = coverData.hasCoverArtRating
+    ? (songData.songAverage * 0.93) +
+      (lengthScore * 0.05) +
+      (coverData.coverArtRating * 0.02)
+    : (songData.songAverage * 0.95) +
+      (lengthScore * 0.05);
 
   const complete =
     songData.ratedSongs.length === songData.eligibleSongs.length &&
-    songData.eligibleSongs.length > 0 &&
-    coverData.hasCoverArtRating;
+    songData.eligibleSongs.length > 0;
 
   return {
     songAverage: songData.songAverage,
@@ -135,14 +136,14 @@ function calculateDeluxeScore(deluxe) {
   const songData = getRatedSongData(deluxe.songs || []);
   const coverData = getCoverArtData(deluxe);
 
-  const finalScore =
-    (songData.songAverage * 0.98) +
-    (coverData.coverArtRating * 0.02);
+  const finalScore = coverData.hasCoverArtRating
+    ? (songData.songAverage * 0.98) +
+      (coverData.coverArtRating * 0.02)
+    : songData.songAverage;
 
   const complete =
     songData.ratedSongs.length === songData.eligibleSongs.length &&
-    songData.eligibleSongs.length > 0 &&
-    coverData.hasCoverArtRating;
+    songData.eligibleSongs.length > 0;
 
   return {
     songAverage: songData.songAverage,

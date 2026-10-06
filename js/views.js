@@ -364,7 +364,7 @@ function renderAlbumHero() {
             <strong class="${stats.ratedCount > 0 ? getRatingColorClass(stats.songAverage) : ""}">
               ${stats.ratedCount > 0 ? stats.songAverage.toFixed(2) : "—"}
             </strong>
-            <small>93%</small>
+            <small>${stats.hasCoverArtRating ? "93%" : "95%"}</small>
           </div>
 
           <div class="metric-card">
@@ -376,7 +376,7 @@ function renderAlbumHero() {
           </div>
 
           <div class="metric-card">
-            <span>Cover Art</span>
+            <span>Cover Art (Optional)</span>
             <input
               id="coverArtRatingInput"
               class="metric-rating-input ${getRatingColorClass(coverArtValue)}"
@@ -386,7 +386,7 @@ function renderAlbumHero() {
               value="${escapeHtml(coverArtValue)}"
               aria-label="Cover art rating"
             >
-            <small>2%</small>
+            <small>${stats.hasCoverArtRating ? "2%" : "Optional"}</small>
           </div>
         </div>
 
@@ -624,7 +624,7 @@ function renderDeluxeSection() {
         <div class="deluxe-card-copy">
           <strong>${escapeHtml(deluxe.title)}</strong>
           <span>${deluxe.songs.length} Bonus ${deluxe.songs.length === 1 ? "Track" : "Tracks"}</span>
-          <small>98% songs · 2% cover · no length penalty</small>
+          <small>${stats.hasCoverArtRating ? "98% songs · 2% cover" : "100% songs · cover optional"} · no length penalty</small>
         </div>
 
         <div class="deluxe-card-score ${scoreClass}">
@@ -730,11 +730,11 @@ function renderDeluxeHero() {
             <strong class="${stats.ratedCount > 0 ? getRatingColorClass(stats.songAverage) : ""}">
               ${stats.ratedCount > 0 ? stats.songAverage.toFixed(2) : "—"}
             </strong>
-            <small>98%</small>
+            <small>${stats.hasCoverArtRating ? "98%" : "100%"}</small>
           </div>
 
           <div class="metric-card">
-            <span>Cover Art</span>
+            <span>Cover Art (Optional)</span>
             <input
               id="deluxeCoverArtRatingInput"
               class="metric-rating-input ${getRatingColorClass(coverArtValue)}"
@@ -744,13 +744,13 @@ function renderDeluxeHero() {
               value="${escapeHtml(coverArtValue)}"
               aria-label="Deluxe cover art rating"
             >
-            <small>2%</small>
+            <small>${stats.hasCoverArtRating ? "2%" : "Optional"}</small>
           </div>
         </div>
 
         <div class="deluxe-info-note">
           <span>ⓘ</span>
-          <p>This deluxe includes only the bonus tracks. The length penalty does not apply.</p>
+          <p>This deluxe includes only the bonus tracks. The length penalty does not apply. Cover art is optional.</p>
         </div>
       </div>
     </div>

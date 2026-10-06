@@ -201,9 +201,9 @@ function showAlbums(artistIndex) {
           alt="${escapeHtml(artist.name)}"
         >
 
-        <div class="artist-average score-outline-card">
+        <div class="artist-average score-outline-card ${artistAverage === null ? "" : getAlbumScoreColorClass(artistAverage)}">
           <span>Average Album Rating</span>
-          <strong class="${artistAverage === null ? "" : getRatingColorClass(artistAverage)}">
+          <strong>
             ${averageDisplay}
           </strong>
         </div>

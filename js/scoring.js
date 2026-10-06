@@ -4,14 +4,12 @@ function calculateAlbumScore(album) {
     album.songs.filter(song => !song.isSkit);
 
 
-
   const ratedSongs =
     eligibleSongs.filter(song =>
       song.rating !== "" &&
       song.rating !== null &&
       song.rating !== undefined
     );
-
 
 
   const numericRatings =
@@ -27,7 +25,6 @@ function calculateAlbumScore(album) {
       return Number(song.rating);
 
     });
-
 
 
   let songAverage = 0;
@@ -46,13 +43,11 @@ function calculateAlbumScore(album) {
   }
 
 
-
   const sCount =
     ratedSongs.filter(song =>
       String(song.rating)
         .toUpperCase() === "S"
     ).length;
-
 
 
   const ninePlusCount =
@@ -72,34 +67,18 @@ function calculateAlbumScore(album) {
     }).length;
 
 
-
   const actualTrackCount =
     eligibleSongs.length;
 
-
-
-  /*
-    Every S = 1 adjustment.
-
-    Every TWO non-S songs rated 9+
-    = 1 adjustment.
-  */
 
   const qualityAdjustment =
     sCount +
     Math.floor(ninePlusCount / 2);
 
 
-
   let effectiveTrackCount =
     actualTrackCount;
 
-
-
-  /*
-    Quality can move the album toward 14,
-    but never beyond 14.
-  */
 
   if (effectiveTrackCount > 14) {
 
@@ -122,9 +101,7 @@ function calculateAlbumScore(album) {
   }
 
 
-
   let lengthScore = 10;
-
 
 
   if (effectiveTrackCount < 14) {
@@ -138,7 +115,6 @@ function calculateAlbumScore(album) {
   }
 
 
-
   else if (effectiveTrackCount > 14) {
 
     const extraTracks =
@@ -150,10 +126,8 @@ function calculateAlbumScore(album) {
   }
 
 
-
   lengthScore =
     Math.max(0, lengthScore);
-
 
 
   const coverArtValue =
@@ -171,12 +145,10 @@ function calculateAlbumScore(album) {
       : 0;
 
 
-
   const finalScore =
-    (songAverage * 0.90) +
+    (songAverage * 0.93) +
     (lengthScore * 0.05) +
-    (coverArtRating * 0.05);
-
+    (coverArtRating * 0.02);
 
 
   const complete =
@@ -184,7 +156,6 @@ function calculateAlbumScore(album) {
     eligibleSongs.length &&
     eligibleSongs.length > 0 &&
     hasCoverArtRating;
-
 
 
   return {
@@ -215,5 +186,90 @@ function calculateAlbumScore(album) {
     complete: complete
 
   };
+
+}
+
+
+function calculateArtistAverage(artist) {
+
+  const completedScores =
+    artist.albums
+      .map(album => calculateAlbumScore(album))
+      .filter(score => score.complete)
+      .map(score => score.finalScore);
+
+  if (completedScores.length === 0) {
+    return null;
+  }
+
+  const total =
+    completedScores.reduce(
+      (sum, score) => sum + score,
+      0
+    );
+
+  return total / completedScores.length;
+
+}
+
+
+function getArtistTopSongs(artist, limit = 10) {
+
+  const songs = [];
+
+  artist.albums.forEach((album, albumIndex) => {
+
+    album.songs.forEach((song, songIndex) => {
+
+      if (song.isSkit) {
+        return;
+      }
+
+      if (
+        song.rating === "" ||
+        song.rating === null ||
+        song.rating === undefined
+      ) {
+        return;
+      }
+
+      const isS =
+        String(song.rating).toUpperCase() === "S";
+
+      const numericRating =
+        isS ? 11 : Number(song.rating);
+
+      if (Number.isNaN(numericRating)) {
+        return;
+      }
+
+      songs.push({
+        title: song.title,
+        albumTitle: album.title,
+        rating: isS ? "S" : numericRating,
+        numericRating: numericRating,
+        albumIndex: albumIndex,
+        songIndex: songIndex
+      });
+
+    });
+
+  });
+
+  songs.sort((a, b) => {
+
+    if (b.numericRating !== a.numericRating) {
+      return b.numericRating - a.numericRating;
+    }
+
+    if (a.albumIndex !== b.albumIndex) {
+      return a.albumIndex - b.albumIndex;
+    }
+
+    return a.songIndex - b.songIndex;
+
+  });
+
+  return songs.slice(0, limit);
 
 }

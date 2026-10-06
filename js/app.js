@@ -73,6 +73,7 @@ document
     artists.push({
       name: name,
       image: image,
+      description: artistDescriptionInput.value.trim(),
       albums: []
     });
 
@@ -80,6 +81,7 @@ document
 
     artistNameInput.value = "";
     artistImageInput.value = "";
+    artistDescriptionInput.value = "";
 
     artistModal.classList.add("hidden");
 

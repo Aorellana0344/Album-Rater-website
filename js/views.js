@@ -1,3 +1,15 @@
+function escapeHtml(value) {
+
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+
+}
+
+
 function showArtists() {
 
   currentArtistIndex = null;
@@ -25,9 +37,9 @@ function showArtists() {
     card.innerHTML = `
       <img
         src="${artist.image || placeholderImage()}"
-        alt="${artist.name}"
+        alt="${escapeHtml(artist.name)}"
       >
-      <p>${artist.name}</p>
+      <p>${escapeHtml(artist.name)}</p>
     `;
 
     card.addEventListener("click", () => {
@@ -53,14 +65,16 @@ function showArtists() {
 }
 
 
-
-
 function showAlbums(artistIndex) {
 
   currentArtistIndex = artistIndex;
   currentAlbumIndex = null;
 
   const artist = artists[artistIndex];
+
+  if (artist.description === undefined) {
+    artist.description = "";
+  }
 
   artistPage.classList.add("hidden");
   albumPage.classList.remove("hidden");
@@ -70,6 +84,94 @@ function showAlbums(artistIndex) {
   addBtn.classList.remove("hidden");
 
   pageTitle.textContent = artist.name;
+
+  const artistAverage =
+    calculateArtistAverage(artist);
+
+  const topSongs =
+    getArtistTopSongs(artist, 10);
+
+  const averageDisplay =
+    artistAverage === null
+      ? "—"
+      : artistAverage.toFixed(2);
+
+  const descriptionDisplay =
+    artist.description.trim()
+      ? escapeHtml(artist.description)
+      : "Add a description for this artist.";
+
+  const topSongsHtml =
+    topSongs.length > 0
+      ? topSongs.map((song, index) => `
+          <div class="top-song-item">
+            <div class="top-song-main">
+              <span class="top-song-rank">${index + 1}</span>
+              <div class="top-song-text">
+                <strong>${escapeHtml(song.title)}</strong>
+                <span>${escapeHtml(song.albumTitle)}</span>
+              </div>
+            </div>
+            <span class="top-song-rating">
+              ${escapeHtml(song.rating)}
+            </span>
+          </div>
+        `).join("")
+      : `
+          <p class="empty-top-songs">
+            Rate some songs to build this artist's Top Songs.
+          </p>
+        `;
+
+  artistProfile.innerHTML = `
+    <div class="artist-profile-header">
+
+      <div class="artist-profile-left">
+        <img
+          class="artist-profile-image"
+          src="${artist.image || placeholderImage()}"
+          alt="${escapeHtml(artist.name)}"
+        >
+
+        <div class="artist-average">
+          <span>Average Album Rating</span>
+          <strong>${averageDisplay}</strong>
+        </div>
+      </div>
+
+      <div class="artist-profile-description">
+        <div class="artist-description-heading">
+          <h2>${escapeHtml(artist.name)}</h2>
+          <button
+            id="editArtistDescriptionBtn"
+            class="small-secondary-btn"
+          >
+            Edit Description
+          </button>
+        </div>
+
+        <p>${descriptionDisplay}</p>
+      </div>
+
+    </div>
+
+    <div class="artist-section-divider"></div>
+
+    <section class="top-songs-section">
+      <h2 class="section-title">Top Songs</h2>
+      <div class="top-songs-grid">
+        ${topSongsHtml}
+      </div>
+    </section>
+  `;
+
+  const editDescriptionBtn =
+    document.getElementById("editArtistDescriptionBtn");
+
+  editDescriptionBtn.addEventListener(
+    "click",
+    () => editArtistDescription(artistIndex)
+  );
 
   albumGrid.innerHTML = "";
 
@@ -94,10 +196,10 @@ function showAlbums(artistIndex) {
     card.innerHTML = `
       <img
         src="${album.image || placeholderImage()}"
-        alt="${album.title}"
+        alt="${escapeHtml(album.title)}"
       >
 
-      <p>${album.title}</p>
+      <p>${escapeHtml(album.title)}</p>
 
       ${scoreText}
     `;
@@ -123,7 +225,6 @@ function showAlbums(artistIndex) {
   });
 
 }
-
 
 
 function showAlbumRating(albumIndex) {
@@ -485,7 +586,7 @@ function updateAlbumStats() {
 
       <div class="score-note">
         S = 11/10 • Ideal length = 14 tracks<br>
-        Final = 90% song average + 5% length + 5% cover art
+        Final = 93% song average + 5% length + 2% cover art
       </div>
 
     </div>

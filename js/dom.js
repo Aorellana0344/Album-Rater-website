@@ -3,6 +3,7 @@ const albumPage = document.getElementById("albumPage");
 const ratingPage = document.getElementById("ratingPage");
 
 const artistGrid = document.getElementById("artistGrid");
+const artistProfile = document.getElementById("artistProfile");
 const albumGrid = document.getElementById("albumGrid");
 const trackList = document.getElementById("trackList");
 const albumHeader = document.getElementById("albumHeader");
@@ -16,6 +17,7 @@ const albumModal = document.getElementById("albumModal");
 
 const artistNameInput = document.getElementById("artistNameInput");
 const artistImageInput = document.getElementById("artistImageInput");
+const artistDescriptionInput = document.getElementById("artistDescriptionInput");
 
 const albumNameInput = document.getElementById("albumNameInput");
 const albumImageInput = document.getElementById("albumImageInput");

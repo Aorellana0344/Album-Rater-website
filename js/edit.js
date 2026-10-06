@@ -1,3 +1,28 @@
+async function editArtistDescription(index) {
+
+  const artist = artists[index];
+
+  const updated = prompt(
+    "Edit artist description:",
+    artist.description || ""
+  );
+
+  if (updated === null) return;
+
+  artist.description = updated.trim();
+
+  await saveData();
+
+  if (currentArtistIndex === index) {
+    showAlbums(index);
+  }
+  else {
+    showArtists();
+  }
+
+}
+
+
 async function editArtist(index) {
 
   const artist = artists[index];
@@ -8,7 +33,8 @@ async function editArtist(index) {
 Type:
 1 = Rename
 2 = Change Image
-3 = Delete Artist`
+3 = Edit Description
+4 = Delete Artist`
   );
 
   if (action === "1") {
@@ -53,6 +79,12 @@ Type:
 
   else if (action === "3") {
 
+    await editArtistDescription(index);
+
+  }
+
+  else if (action === "4") {
+
     const confirmed = confirm(
       `Delete ${artist.name} and all of their albums?`
     );
@@ -67,6 +99,7 @@ Type:
   }
 
 }
+
 
 async function editAlbum(index) {
 
@@ -152,11 +185,6 @@ Type:
         .split("\n")
         .map(name => name.trim())
         .filter(name => name !== "");
-
-    /*
-      Preserve existing ratings
-      where song names still match.
-    */
 
     const oldSongs =
       album.songs;

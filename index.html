@@ -44,8 +44,12 @@
 
   <link
     rel="stylesheet"
-    href="style.css?v=6"
+    href="style-v7.css?v=8"
   >
+
+  <style>
+    html, body { background: #111214 !important; color: #f4f4f5 !important; }
+  </style>
 
 </head>
 
@@ -183,7 +187,7 @@ Song 05
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
         navigator.serviceWorker
-          .register("./sw.js")
+          .register("./sw-v7.js")
           .then(registration => registration.update())
           .catch(error => console.error("Service worker registration failed:", error));
       });

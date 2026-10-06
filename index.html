@@ -1,198 +1,120 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-  <link
-  rel="apple-touch-icon"
-  href="icon-192.png"
-  >
-
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-  >
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Album Rater</title>
-
-  <meta
-    name="theme-color"
-    content="#111214"
-  >
-
-  <meta
-    name="apple-mobile-web-app-capable"
-    content="yes"
-  >
-
-  <meta
-    name="apple-mobile-web-app-status-bar-style"
-    content="black-translucent"
-  >
-
-  <meta
-    name="apple-mobile-web-app-title"
-    content="Album Rater"
-  >
-
-  <link
-    rel="manifest"
-    href="manifest.webmanifest"
-  >
-
-  <link
-    rel="stylesheet"
-    href="style-v7.css?v=10"
-  >
-
-  <style>
-    html, body { background: #111214 !important; color: #f4f4f5 !important; }
-  </style>
-
+  <meta name="theme-color" content="#0d1117">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Album Rater">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="style-v11.css?v=11">
+  <style>html,body{background:#0d1117!important;color:#f5f7fa!important}</style>
 </head>
-
 <body>
-
   <header>
-    <button id="backBtn" class="hidden">← Back</button>
+    <button id="backBtn" class="hidden" aria-label="Go back">← <span>Back</span></button>
     <h1 id="pageTitle">Artists</h1>
-    <button id="addBtn">+</button>
+    <button id="addBtn" aria-label="Add">+</button>
   </header>
 
   <main>
-
-    <!-- ARTIST PAGE -->
     <section id="artistPage">
       <div id="artistGrid" class="grid"></div>
     </section>
 
-    <!-- ALBUM PAGE -->
     <section id="albumPage" class="hidden">
       <div id="artistProfile"></div>
-
       <section class="artist-albums-section">
         <h2 class="section-title">Albums</h2>
         <div id="albumGrid" class="grid"></div>
       </section>
     </section>
 
-    <!-- RATING PAGE -->
     <section id="ratingPage" class="hidden">
       <div id="albumHeader"></div>
       <div id="trackList"></div>
+      <div id="deluxeSection"></div>
     </section>
 
-<div id="backupSection">
-  <button id="exportBtn">Export Backup</button>
+    <section id="deluxePage" class="hidden">
+      <div id="deluxeHeader"></div>
+      <div id="deluxeTrackList"></div>
+    </section>
 
-  <label for="importFile" class="importButton">
-    Import Backup
-  </label>
-
-  <input
-    id="importFile"
-    type="file"
-    accept=".json"
-    hidden
-  >
-</div>
-
+    <div id="backupSection">
+      <button id="exportBtn">Export Backup</button>
+      <label for="importFile" class="importButton">Import Backup</label>
+      <input id="importFile" type="file" accept=".json" hidden>
+    </div>
   </main>
 
-  <!-- ADD ARTIST MODAL -->
   <div id="artistModal" class="modal hidden">
     <div class="modalBox">
-
       <h2>Add Artist</h2>
-
-      <input
-        id="artistNameInput"
-        type="text"
-        placeholder="Artist name"
-      >
-
+      <input id="artistNameInput" type="text" placeholder="Artist name">
       <label>Artist Image</label>
-      <input
-        id="artistImageInput"
-        type="file"
-        accept="image/*"
-      >
-
+      <input id="artistImageInput" type="file" accept="image/*">
       <label>Artist Description</label>
-      <textarea
-        id="artistDescriptionInput"
-        placeholder="Where they are from, style, background, notes..."
-      ></textarea>
-
+      <textarea id="artistDescriptionInput" placeholder="Where they are from, style, background, notes..."></textarea>
       <div class="modalButtons">
         <button id="cancelArtistBtn">Cancel</button>
         <button id="saveArtistBtn">Save</button>
       </div>
-
     </div>
   </div>
 
-  <!-- ADD ALBUM MODAL -->
   <div id="albumModal" class="modal hidden">
     <div class="modalBox">
-
       <h2>Add Album</h2>
-
-      <input
-        id="albumNameInput"
-        type="text"
-        placeholder="Album name"
-      >
-
+      <input id="albumNameInput" type="text" placeholder="Album name">
       <label>Album Cover</label>
-      <input
-        id="albumImageInput"
-        type="file"
-        accept="image/*"
-      >
-
+      <input id="albumImageInput" type="file" accept="image/*">
       <label>Tracklist</label>
-
-<textarea
-  id="tracklistInput"
-  placeholder="Enter one song per line
-
-Song 01
-Song 02
-Song 03
-Song 04
-Song 05
-..."
-></textarea>
+      <textarea id="tracklistInput" placeholder="Enter one song per line&#10;&#10;Song 01&#10;Song 02&#10;Song 03"></textarea>
       <div class="modalButtons">
         <button id="cancelAlbumBtn">Cancel</button>
         <button id="saveAlbumBtn">Save</button>
       </div>
-
     </div>
   </div>
 
-  <script src="js/state.js"></script>
-  <script src="js/dom.js"></script>
-  <script src="js/scoring.js"></script>
-  <script src="js/storage.js"></script>
-  <script src="js/edit.js"></script>
-  <script src="js/views.js?v=10"></script>
-  <script src="js/backup.js"></script>
-  <script src="js/app.js"></script>
+  <div id="deluxeModal" class="modal hidden">
+    <div class="modalBox">
+      <h2>Add Deluxe Edition</h2>
+      <p class="modal-helper">Add only the bonus songs. Do not repeat the original album tracks.</p>
+      <input id="deluxeNameInput" type="text" placeholder="Deluxe edition name">
+      <label>Deluxe Cover</label>
+      <input id="deluxeImageInput" type="file" accept="image/*">
+      <label>Bonus Tracklist</label>
+      <textarea id="deluxeTracklistInput" placeholder="Enter only bonus songs, one per line"></textarea>
+      <div class="modalButtons">
+        <button id="cancelDeluxeBtn">Cancel</button>
+        <button id="saveDeluxeBtn">Save Deluxe</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/state.js?v=11"></script>
+  <script src="js/dom.js?v=11"></script>
+  <script src="js/scoring.js?v=11"></script>
+  <script src="js/storage.js?v=11"></script>
+  <script src="js/edit.js?v=11"></script>
+  <script src="js/views.js?v=11"></script>
+  <script src="js/backup.js?v=11"></script>
+  <script src="js/app.js?v=11"></script>
 
   <script>
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
         navigator.serviceWorker
-          .register("./sw-v7.js")
+          .register("./sw-v11.js")
           .then(registration => registration.update())
           .catch(error => console.error("Service worker registration failed:", error));
       });
     }
   </script>
-
 </body>
 </html>

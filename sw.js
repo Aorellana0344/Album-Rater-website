@@ -1,9 +1,9 @@
-const CACHE_NAME = "album-rater-v5";
+const CACHE_NAME = "album-rater-v6";
 
 const FILES_TO_CACHE = [
   "./",
   "./index.html",
-  "./style.css",
+  "./style.css?v=6",
   "./js/state.js",
   "./js/dom.js",
   "./js/scoring.js",
@@ -15,85 +15,70 @@ const FILES_TO_CACHE = [
   "./manifest.webmanifest"
 ];
 
+self.addEventListener("install", event => {
+  self.skipWaiting();
 
-self.addEventListener(
-  "install",
-  event => {
+  event.waitUntil(
+    caches
+      .open(CACHE_NAME)
+      .then(cache => cache.addAll(FILES_TO_CACHE))
+  );
+});
 
-    event.waitUntil(
+self.addEventListener("activate", event => {
+  event.waitUntil(
+    (async () => {
+      const cacheNames = await caches.keys();
 
-      caches
-        .open(CACHE_NAME)
-        .then(cache => {
-
-          return cache.addAll(
-            FILES_TO_CACHE
-          );
-
+      await Promise.all(
+        cacheNames.map(cacheName => {
+          if (cacheName !== CACHE_NAME) {
+            return caches.delete(cacheName);
+          }
         })
+      );
 
-    );
+      await self.clients.claim();
+    })()
+  );
+});
 
+self.addEventListener("fetch", event => {
+  if (event.request.method !== "GET") {
+    return;
   }
-);
 
+  const requestUrl = new URL(event.request.url);
 
-self.addEventListener(
-  "activate",
-  event => {
-
-    event.waitUntil(
-
-      caches
-        .keys()
-        .then(cacheNames => {
-
-          return Promise.all(
-
-            cacheNames.map(
-              cacheName => {
-
-                if (
-                  cacheName !== CACHE_NAME
-                ) {
-
-                  return caches.delete(
-                    cacheName
-                  );
-
-                }
-
-              }
-            )
-
-          );
-
-        })
-
-    );
-
+  if (requestUrl.origin !== self.location.origin) {
+    return;
   }
-);
 
+  event.respondWith(
+    (async () => {
+      try {
+        const response = await fetch(event.request, {
+          cache: "no-store"
+        });
 
-self.addEventListener(
-  "fetch",
-  event => {
+        const cache = await caches.open(CACHE_NAME);
+        cache.put(event.request, response.clone());
 
-    event.respondWith(
+        return response;
+      }
+      catch (error) {
+        const cachedResponse = await caches.match(event.request);
 
-      caches
-        .match(event.request)
-        .then(response => {
+        if (cachedResponse) {
+          return cachedResponse;
+        }
 
-          return (
-            response ||
-            fetch(event.request)
-          );
+        if (event.request.mode === "navigate") {
+          return caches.match("./index.html");
+        }
 
-        })
-
-    );
-
-  }
-);
+        throw error;
+      }
+    })()
+  );
+});

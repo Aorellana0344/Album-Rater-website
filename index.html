@@ -44,7 +44,7 @@
 
   <link
     rel="stylesheet"
-    href="style.css"
+    href="style.css?v=6"
   >
 
 </head>
@@ -178,6 +178,17 @@ Song 05
   <script src="js/views.js"></script>
   <script src="js/backup.js"></script>
   <script src="js/app.js"></script>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker
+          .register("./sw.js")
+          .then(registration => registration.update())
+          .catch(error => console.error("Service worker registration failed:", error));
+      });
+    }
+  </script>
 
 </body>
 </html>

@@ -238,6 +238,22 @@ main {
   border-radius: 9px;
 }
 
+.artist-average.rating-rainbow {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(180deg, rgba(19, 28, 37, 0.96), rgba(13, 20, 27, 0.96)) padding-box,
+    linear-gradient(
+      90deg,
+      #ff5f6d,
+      #ffb84d,
+      #f7e967,
+      #63d471,
+      #4cb4ff,
+      #c084fc,
+      #ff6ec7
+    ) border-box;
+}
+
 .artist-average span {
   display: block;
   color: #c5d0db;
@@ -833,12 +849,6 @@ main {
 .rating-chip.rating-green,
 .rating-chip.rating-blue,
 .rating-chip.rating-purple,
-.artist-average strong.rating-red,
-.artist-average strong.rating-orange,
-.artist-average strong.rating-yellow,
-.artist-average strong.rating-green,
-.artist-average strong.rating-blue,
-.artist-average strong.rating-purple,
 .metric-card strong.rating-red,
 .metric-card strong.rating-orange,
 .metric-card strong.rating-yellow,
@@ -864,7 +874,6 @@ main {
 .rating-input.rating-rainbow,
 .metric-rating-input.rating-rainbow,
 .rating-chip.rating-rainbow,
-.artist-average strong.rating-rainbow,
 .metric-card strong.rating-rainbow,
 .hero-score-card.rating-rainbow,
 .deluxe-card-score.rating-rainbow {
@@ -886,18 +895,11 @@ main {
 
 .hero-score-card.rating-rainbow,
 .deluxe-card-score.rating-rainbow,
-.artist-average strong.rating-rainbow,
 .metric-card strong.rating-rainbow,
 .rating-chip.rating-rainbow {
   border-radius: 8px;
 }
 
-.artist-average strong.rating-red,
-.artist-average strong.rating-orange,
-.artist-average strong.rating-yellow,
-.artist-average strong.rating-green,
-.artist-average strong.rating-blue,
-.artist-average strong.rating-purple,
 .metric-card strong.rating-red,
 .metric-card strong.rating-orange,
 .metric-card strong.rating-yellow,

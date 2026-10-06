@@ -66,7 +66,12 @@
 
     <!-- ALBUM PAGE -->
     <section id="albumPage" class="hidden">
-      <div id="albumGrid" class="grid"></div>
+      <div id="artistProfile"></div>
+
+      <section class="artist-albums-section">
+        <h2 class="section-title">Albums</h2>
+        <div id="albumGrid" class="grid"></div>
+      </section>
     </section>
 
     <!-- RATING PAGE -->
@@ -110,6 +115,12 @@
         type="file"
         accept="image/*"
       >
+
+      <label>Artist Description</label>
+      <textarea
+        id="artistDescriptionInput"
+        placeholder="Where they are from, style, background, notes..."
+      ></textarea>
 
       <div class="modalButtons">
         <button id="cancelArtistBtn">Cancel</button>

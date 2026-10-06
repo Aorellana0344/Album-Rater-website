@@ -35,6 +35,22 @@ function getAlbumScoreColorClass(value) {
 }
 
 
+function getArtistAverageColorClass(value) {
+  if (value === "" || value === null || value === undefined) {
+    return "";
+  }
+
+  const rating = Number(value);
+  if (Number.isNaN(rating)) return "";
+
+  if (rating >= 9) {
+    return "rating-rainbow";
+  }
+
+  return getRatingColorClass(rating);
+}
+
+
 function formatAlbumScore(value, includeStar = false) {
   const rounded = Number(Number(value).toFixed(2));
 
@@ -201,7 +217,7 @@ function showAlbums(artistIndex) {
           alt="${escapeHtml(artist.name)}"
         >
 
-        <div class="artist-average score-outline-card ${artistAverage === null ? "" : getAlbumScoreColorClass(artistAverage)}">
+        <div class="artist-average score-outline-card ${artistAverage === null ? "" : getArtistAverageColorClass(artistAverage)}">
           <span>Average Album Rating</span>
           <strong>
             ${averageDisplay}

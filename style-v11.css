@@ -611,7 +611,7 @@ main {
 
 .track {
   display: grid;
-  grid-template-columns: 32px minmax(0, 1fr) 86px;
+  grid-template-columns: 32px minmax(0, 1fr) 150px;
   align-items: center;
   gap: 10px;
   min-height: 58px;
@@ -1145,7 +1145,7 @@ main {
   }
 
   .track {
-    grid-template-columns: 26px minmax(0, 1fr) 75px;
+    grid-template-columns: 26px minmax(0, 1fr) 132px;
     gap: 7px;
   }
 
@@ -1207,7 +1207,13 @@ main {
   width: 100%;
   min-width: 0;
 }
-.song-rating-controls .rating-input { width: 0; min-width: 0; flex: 1; }
+.song-rating-controls .rating-input {
+  width: 0;
+  min-width: 0;
+  flex: 1;
+  height: 36px;
+  font-size: 16px;
+}
 .s-rating-btn {
   flex: 0 0 30px;
   width: 30px;

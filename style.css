@@ -3,16 +3,16 @@
 }
 
 :root {
-  --bg: #f5f5f7;
-  --surface: #ffffff;
-  --surface-2: #eeeeF1;
-  --border: #d1d1d6;
+  --bg: #111214;
+  --surface: #1a1c20;
+  --surface-2: #25282e;
+  --border: #34383f;
 
-  --text: #111113;
-  --muted: #77777f;
+  --text: #f4f4f5;
+  --muted: #9b9ba4;
 
-  --silver: #b6b6bd;
-  --dark-silver: #6d6d73;
+  --silver: #c4c4ca;
+  --dark-silver: #a2a2aa;
 }
 
 html {
@@ -62,7 +62,7 @@ header {
   height: 66px;
   padding: 0 14px;
 
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(17, 18, 20, 0.90);
 
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -162,7 +162,7 @@ main {
 
   border-radius: 14px;
 
-  background: #e6e6e9;
+  background: #24272c;
 
   box-shadow:
     0 3px 12px
@@ -260,7 +260,7 @@ main {
 
   text-align: left;
 
-  background: rgba(255, 255, 255, 0.78);
+  background: rgba(28, 30, 34, 0.88);
 
   border: 1px solid var(--border);
   border-radius: 18px;
@@ -319,7 +319,7 @@ main {
 .score-note {
   margin-top: 12px;
 
-  color: #99999f;
+  color: #85858f;
 
   font-size: 11px;
   line-height: 1.5;
@@ -384,7 +384,7 @@ main {
   width: 15px;
   height: 15px;
 
-  accent-color: #77777f;
+  accent-color: #b0b0b8;
 }
 
 .rating-input {
@@ -397,7 +397,7 @@ main {
 
   outline: none;
 
-  background: white;
+  background: var(--surface);
   color: var(--text);
 
   text-align: center;
@@ -455,7 +455,7 @@ main {
   padding: 22px;
 
   background:
-    rgba(255, 255, 255, 0.96);
+    rgba(26, 28, 32, 0.98);
 
   border: 1px solid var(--border);
 
@@ -499,7 +499,7 @@ main {
 
   border-radius: 12px;
 
-  background: #f7f7f9;
+  background: #202329;
 
   color: var(--text);
 }
@@ -532,7 +532,7 @@ main {
 
   border-radius: 12px;
 
-  background: #e8e8eb;
+  background: #292c32;
 
   color: var(--text);
 
@@ -544,13 +544,13 @@ main {
   background:
     linear-gradient(
       145deg,
-      #f8f8fa,
-      #cfcfd4
+      #3a3e45,
+      #24272c
     );
 
-  border: 1px solid #b9b9bf;
+  border: 1px solid #4a4f58;
 
-  color: #111;
+  color: var(--text);
 }
 
 
@@ -592,9 +592,9 @@ main {
   border-radius: 999px;
 
   background:
-    rgba(255, 255, 255, 0.92);
+    rgba(28, 30, 34, 0.94);
 
-  color: #55555c;
+  color: #b2b2ba;
 
   box-shadow:
     0 3px 12px
@@ -611,7 +611,7 @@ main {
 
 #exportBtn {
   background:
-    rgba(255, 255, 255, 0.92);
+    rgba(28, 30, 34, 0.94);
 }
 
 
@@ -653,11 +653,11 @@ main {
   width: 28px;
   height: 28px;
 
-  border: 1px solid rgba(0,0,0,0.08);
+  border: 1px solid rgba(255,255,255,0.10);
   border-radius: 50%;
 
-  background: rgba(255,255,255,0.88);
-  color: #333;
+  background: rgba(29,31,35,0.94);
+  color: #e6e6e9;
 
   font-size: 16px;
   font-weight: 700;
@@ -687,7 +687,7 @@ main {
   border: 1px solid var(--border);
   border-radius: 10px;
 
-  background: white;
+  background: var(--surface);
   color: var(--text);
 
   font-size: 12px;
@@ -695,9 +695,9 @@ main {
 }
 
 .danger-btn {
-  color: #b42318 !important;
-  border-color: #f1c0bc !important;
-  background: #fff5f4 !important;
+  color: #ff8f87 !important;
+  border-color: #6c3636 !important;
+  background: #321f20 !important;
 }
 
 .song-actions {
@@ -712,31 +712,232 @@ main {
   border: 1px solid var(--border);
   border-radius: 8px;
 
-  background: white;
+  background: var(--surface);
   color: var(--text);
 
   font-size: 10px;
   font-weight: 650;
 }
-.rating-controls {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 6px;
+
+/* ARTIST PROFILE */
+
+#artistProfile {
+  margin-bottom: 30px;
 }
-.s-rating-btn {
-  min-height: 44px;
+
+.artist-profile-header {
+  display: grid;
+  grid-template-columns: minmax(130px, 180px) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.artist-profile-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 18px;
+  background: #24272c;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.artist-average {
+  margin-top: 12px;
+  padding: 12px 10px;
+  text-align: center;
+  background: rgba(28, 30, 34, 0.90);
   border: 1px solid var(--border);
-  border-radius: 11px;
-  font-weight: 750;
+  border-radius: 14px;
 }
-.s-rating-btn[aria-pressed="true"] {
-  background: var(--text);
-  color: white;
+
+.artist-average span {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 650;
 }
-.s-rating-btn:disabled { opacity: 0.35; }
-.rating-input.rating-purple {
-  background: #f3e8ff;
-  color: #7e22ce;
-  border-color: #c084fc;
+
+.artist-average strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 25px;
+  line-height: 1;
+}
+
+.artist-profile-description {
+  min-width: 0;
+  padding-top: 2px;
+}
+
+.artist-description-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.artist-description-heading h2 {
+  margin: 0;
+  font-size: 25px;
+  font-weight: 780;
+}
+
+.artist-profile-description p {
+  margin: 0;
+  color: #b8b8c0;
+  font-size: 14px;
+  line-height: 1.65;
+  white-space: pre-line;
+}
+
+.small-secondary-btn {
+  flex: none;
+  padding: 7px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(35, 38, 43, 0.94);
+  color: var(--dark-silver);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.artist-section-divider {
+  height: 1px;
+  margin: 28px 0 24px;
+  background: var(--border);
+}
+
+.section-title {
+  margin: 0 0 14px;
+  font-size: 19px;
+  font-weight: 760;
+}
+
+.top-songs-section {
+  margin-bottom: 32px;
+}
+
+.top-songs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 12px;
+}
+
+.top-song-item {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  background: rgba(28, 30, 34, 0.88);
+  border: 1px solid var(--border);
+  border-radius: 13px;
+}
+
+.top-song-main {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.top-song-rank {
+  flex: none;
+  width: 18px;
+  color: #7f8089;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.top-song-text {
+  min-width: 0;
+}
+
+.top-song-text strong,
+.top-song-text span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.top-song-text strong {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.top-song-text span {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.top-song-rating {
+  flex: none;
+  min-width: 30px;
+  padding: 5px 7px;
+  border-radius: 8px;
+  background: var(--surface-2);
+  font-size: 11px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.empty-top-songs {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 16px;
+  color: var(--muted);
+  background: rgba(28, 30, 34, 0.72);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  font-size: 13px;
+}
+
+.artist-albums-section {
+  padding-top: 2px;
+}
+
+@media (max-width: 520px) {
+
+  .artist-profile-header {
+    grid-template-columns: 118px minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .artist-average {
+    padding: 10px 6px;
+  }
+
+  .artist-average span {
+    font-size: 9px;
+  }
+
+  .artist-average strong {
+    font-size: 21px;
+  }
+
+  .artist-description-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .artist-description-heading h2 {
+    font-size: 21px;
+  }
+
+  .artist-profile-description p {
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  .top-songs-grid {
+    grid-template-columns: 1fr;
+  }
+
 }

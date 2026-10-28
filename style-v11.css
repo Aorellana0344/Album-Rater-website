@@ -1268,3 +1268,5 @@ main {
   .artist-description-heading { flex-wrap:wrap; }
   .top-songs-grid { grid-template-columns:1fr; }
 }
+
+.artist-player-card[data-tier="diamond"] { --card-accent:#a9eaff; }

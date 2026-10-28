@@ -279,14 +279,22 @@ function showAlbums(artistIndex) {
 
   albumGrid.innerHTML = "";
 
-  artist.albums.forEach((album, index) => {
+  const rankedAlbums = artist.albums.map((album, index) => ({
+    album, index, score: calculateAlbumScore(album)
+  })).sort((a, b) => {
+    if (a.score.complete !== b.score.complete) return a.score.complete ? -1 : 1;
+    if (a.score.complete && a.score.finalScore !== b.score.finalScore) {
+      return b.score.finalScore - a.score.finalScore;
+    }
+    return a.index - b.index;
+  });
+
+  rankedAlbums.forEach(({ album, index, score }) => {
     const wrapper = document.createElement("div");
     wrapper.className = "card-wrap";
 
     const card = document.createElement("div");
     card.className = "card album-card";
-
-    const score = calculateAlbumScore(album);
 
     const scoreText = score.complete
       ? `

@@ -269,6 +269,6 @@ function getArtistCardData(artist, mode = "prime") {
   const selected = mode === "career" ? scores : scores.slice(0, 3);
   const average = selected.length ? selected.reduce((a, b) => a + b, 0) / selected.length : null;
   const overall = average === null ? null : Math.min(99, Math.max(0, Math.round(average * 10)));
-  const tier = overall === null ? "unrated" : overall >= 90 ? "purple" : overall >= 80 ? "gold" : overall >= 70 ? "silver" : "bronze";
+  const tier = overall === null ? "unrated" : overall >= 95 ? "diamond" : overall >= 90 ? "purple" : overall >= 80 ? "gold" : overall >= 70 ? "silver" : "bronze";
   return { overall, tier, count: selected.length };
 }

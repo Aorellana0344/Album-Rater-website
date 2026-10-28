@@ -187,13 +187,7 @@ function showAlbums(artistIndex) {
   addBtn.classList.remove("hidden");
   pageTitle.textContent = artist.name;
 
-  const artistAverage = calculateArtistAverage(artist);
   const topSongs = getArtistTopSongs(artist, 10);
-
-  const averageDisplay =
-    artistAverage === null
-      ? "—"
-      : artistAverage.toFixed(2);
 
   const descriptionDisplay =
     artist.description.trim()
@@ -205,6 +199,7 @@ function showAlbums(artistIndex) {
         <div class="top-song-item">
           <div class="top-song-main">
             <span class="top-song-rank">${index + 1}</span>
+            <img class="top-song-cover" src="${escapeHtml((song.isDeluxe ? artist.albums[song.albumIndex].deluxe?.image : null) || artist.albums[song.albumIndex].image || placeholderImage())}" alt="" loading="lazy">
             <div class="top-song-text">
               <strong>${escapeHtml(song.title)}</strong>
               <span>${escapeHtml(song.albumTitle)}</span>
@@ -224,18 +219,18 @@ function showAlbums(artistIndex) {
   artistProfile.innerHTML = `
     <div class="artist-profile-card">
       <div class="artist-profile-left">
-        <img
-          class="artist-profile-image"
-          src="${artist.image || placeholderImage()}"
-          alt="${escapeHtml(artist.name)}"
-        >
-
-        <div class="artist-average score-outline-card ${artistAverage === null ? "" : getArtistAverageColorClass(artistAverage)}">
-          <span>Average Album Rating</span>
-          <strong>
-            ${averageDisplay}
-          </strong>
+        <div class="artist-card-tabs" role="group" aria-label="Artist card version">
+          <button type="button" data-card-mode="prime" aria-pressed="true">Prime</button>
+          <button type="button" data-card-mode="career" aria-pressed="false">Career</button>
         </div>
+        <div id="artistPlayerCard" class="artist-player-card">
+          <img class="player-card-photo" src="${escapeHtml(artist.image || placeholderImage())}" alt="${escapeHtml(artist.name)}">
+          <div class="player-card-shade"></div>
+          <img class="player-card-frame" alt="" aria-hidden="true">
+          <div class="player-card-overall"><strong></strong><span>OVR</span></div>
+          <div class="player-card-name"><strong>${escapeHtml(artist.name)}</strong><span></span></div>
+        </div>
+        <p id="artistCardCaption" class="artist-card-caption" aria-live="polite"></p>
       </div>
 
       <div class="artist-profile-description">
@@ -256,6 +251,27 @@ function showAlbums(artistIndex) {
       </div>
     </section>
   `;
+
+  const updateArtistCard = mode => {
+    const data = getArtistCardData(artist, mode);
+    const card = document.getElementById("artistPlayerCard");
+    card.dataset.tier = data.tier;
+    card.querySelector(".player-card-overall strong").textContent = data.overall ?? "—";
+    card.querySelector(".player-card-name span").textContent = mode;
+    const frame = card.querySelector(".player-card-frame");
+    frame.hidden = data.overall === null;
+    if (data.overall !== null) frame.src = `assets/cards/${data.tier}.png`;
+    document.getElementById("artistCardCaption").textContent = mode === "prime"
+      ? `Best 3 albums · ${data.count}/3 rated`
+      : `Catalog average · ${data.count} completed album${data.count === 1 ? "" : "s"}`;
+    artistProfile.querySelectorAll("[data-card-mode]").forEach(button => {
+      button.setAttribute("aria-pressed", String(button.dataset.cardMode === mode));
+    });
+  };
+  artistProfile.querySelectorAll("[data-card-mode]").forEach(button => {
+    button.addEventListener("click", () => updateArtistCard(button.dataset.cardMode));
+  });
+  updateArtistCard("prime");
 
   document
     .getElementById("editArtistDescriptionBtn")

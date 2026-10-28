@@ -1235,3 +1235,36 @@ main {
 }
 .s-rating-btn:focus-visible { outline: 2px solid var(--purple); outline-offset: 2px; }
 .s-rating-btn:disabled { opacity: 0.35; cursor: default; }
+
+/* Artist collectible cards: shared frame over the existing artist photo. */
+.artist-profile-card { grid-template-columns: 280px minmax(0, 1fr); }
+.artist-card-tabs { display:flex; gap:8px; margin:0 0 10px; }
+.artist-card-tabs button { flex:1; padding:10px; border:1px solid var(--border); border-radius:9px; background:var(--surface-2); color:var(--text); font:inherit; font-weight:700; cursor:pointer; }
+.artist-card-tabs button[aria-pressed="true"] { border-color:#b14cff; background:#30134b; color:#fff; }
+.artist-card-tabs button:focus-visible { outline:2px solid #b14cff; outline-offset:3px; }
+.artist-player-card { position:relative; width:100%; aspect-ratio:2/3; isolation:isolate; --card-accent:#b14cff; }
+.artist-player-card[data-tier="gold"] { --card-accent:#cda340; }
+.artist-player-card[data-tier="silver"] { --card-accent:#b7c1cd; }
+.artist-player-card[data-tier="bronze"] { --card-accent:#795338; }
+.artist-player-card[data-tier="unrated"] { --card-accent:#637080; }
+.player-card-photo { position:absolute; left:7%; top:6%; width:86%; height:87%; object-fit:cover; border-radius:8px; }
+.player-card-shade { position:absolute; inset:6% 7% 7%; background:linear-gradient(180deg,rgba(0,0,0,.4),transparent 30%,rgba(0,0,0,.1) 50%,#06080ded 86%); border-radius:8px; }
+.player-card-frame { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+.player-card-frame[hidden] { display:none; }
+.artist-player-card[data-tier="unrated"] { outline:1px solid #637080; border-radius:12px; }
+.player-card-overall { position:absolute; top:10%; left:12%; color:white; text-shadow:0 2px 5px #000; display:flex; flex-direction:column; }
+.player-card-overall strong { font-size:50px; font-weight:900; line-height:1; }
+.player-card-overall span { font-size:12px; font-weight:800; }
+.player-card-name { position:absolute; bottom:12%; left:12%; right:12%; text-align:center; color:white; text-shadow:0 2px 5px #000; }
+.player-card-name strong { display:block; font-size:22px; line-height:1.1; font-weight:900; text-transform:uppercase; overflow-wrap:anywhere; }
+.player-card-name span { display:block; margin-top:12px; text-transform:uppercase; letter-spacing:4px; font-size:12px; font-weight:800; color:var(--card-accent); }
+.artist-card-caption { text-align:center; font-size:12px; color:#a6b1bf; margin:6px 0 0; }
+.top-song-cover { width:38px; height:38px; object-fit:cover; border-radius:4px; flex:none; }
+.top-song-text { min-width:0; }
+@media(max-width:700px) {
+  .artist-profile-card { grid-template-columns:1fr; }
+  .artist-profile-left { width:min(260px,100%); margin:0 auto; }
+  .artist-profile-description { width:100%; }
+  .artist-description-heading { flex-wrap:wrap; }
+  .top-songs-grid { grid-template-columns:1fr; }
+}

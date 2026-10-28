@@ -1,17 +1,21 @@
-const CACHE_NAME = "album-rater-v18";
+const CACHE_NAME = "album-rater-v19";
 
 const FILES_TO_CACHE = [
   "./index.html",
-  "./style-v11.css?v=18",
-  "./js/state.js?v=18",
-  "./js/dom.js?v=18",
-  "./js/scoring.js?v=18",
-  "./js/storage.js?v=18",
-  "./js/edit.js?v=18",
-  "./js/views.js?v=18",
-  "./js/backup.js?v=18",
-  "./js/app.js?v=18",
-  "./manifest.webmanifest"
+  "./style-v11.css?v=19",
+  "./js/state.js?v=19",
+  "./js/dom.js?v=19",
+  "./js/scoring.js?v=19",
+  "./js/storage.js?v=19",
+  "./js/edit.js?v=19",
+  "./js/views.js?v=19",
+  "./js/backup.js?v=19",
+  "./js/app.js?v=19",
+  "./manifest.webmanifest",
+  "./assets/cards/purple.png",
+  "./assets/cards/gold.png",
+  "./assets/cards/silver.png",
+  "./assets/cards/bronze.png"
 ];
 
 self.addEventListener("install", event => {

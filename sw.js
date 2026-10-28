@@ -1,84 +1,92 @@
-const CACHE_NAME = "album-rater-v6";
+const CACHE_NAME = "album-rater-v2";
 
 const FILES_TO_CACHE = [
   "./",
   "./index.html",
-  "./style.css?v=6",
-  "./js/state.js",
-  "./js/dom.js",
-  "./js/scoring.js",
-  "./js/storage.js",
-  "./js/edit.js",
-  "./js/views.js",
-  "./js/backup.js",
-  "./js/app.js",
+  "./style.css",
+  "./script.js",
   "./manifest.webmanifest"
 ];
 
-self.addEventListener("install", event => {
-  self.skipWaiting();
 
-  event.waitUntil(
-    caches
-      .open(CACHE_NAME)
-      .then(cache => cache.addAll(FILES_TO_CACHE))
-  );
-});
+self.addEventListener(
+  "install",
+  event => {
 
-self.addEventListener("activate", event => {
-  event.waitUntil(
-    (async () => {
-      const cacheNames = await caches.keys();
+    event.waitUntil(
 
-      await Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheName !== CACHE_NAME) {
-            return caches.delete(cacheName);
-          }
+      caches
+        .open(CACHE_NAME)
+        .then(cache => {
+
+          return cache.addAll(
+            FILES_TO_CACHE
+          );
+
         })
-      );
 
-      await self.clients.claim();
-    })()
-  );
-});
+    );
 
-self.addEventListener("fetch", event => {
-  if (event.request.method !== "GET") {
-    return;
   }
+);
 
-  const requestUrl = new URL(event.request.url);
 
-  if (requestUrl.origin !== self.location.origin) {
-    return;
+self.addEventListener(
+  "activate",
+  event => {
+
+    event.waitUntil(
+
+      caches
+        .keys()
+        .then(cacheNames => {
+
+          return Promise.all(
+
+            cacheNames.map(
+              cacheName => {
+
+                if (
+                  cacheName !== CACHE_NAME
+                ) {
+
+                  return caches.delete(
+                    cacheName
+                  );
+
+                }
+
+              }
+            )
+
+          );
+
+        })
+
+    );
+
   }
+);
 
-  event.respondWith(
-    (async () => {
-      try {
-        const response = await fetch(event.request, {
-          cache: "no-store"
-        });
 
-        const cache = await caches.open(CACHE_NAME);
-        cache.put(event.request, response.clone());
+self.addEventListener(
+  "fetch",
+  event => {
 
-        return response;
-      }
-      catch (error) {
-        const cachedResponse = await caches.match(event.request);
+    event.respondWith(
 
-        if (cachedResponse) {
-          return cachedResponse;
-        }
+      caches
+        .match(event.request)
+        .then(response => {
 
-        if (event.request.mode === "navigate") {
-          return caches.match("./index.html");
-        }
+          return (
+            response ||
+            fetch(event.request)
+          );
 
-        throw error;
-      }
-    })()
-  );
-});
+        })
+
+    );
+
+  }
+);

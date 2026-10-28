@@ -67,6 +67,8 @@ function getCoverArtData(item) {
 }
 
 
+const IDEAL_ALBUM_TRACK_COUNT = 12;
+
 function calculateAlbumScore(album) {
   const songData = getRatedSongData(album.songs);
 
@@ -78,26 +80,26 @@ function calculateAlbumScore(album) {
 
   let effectiveTrackCount = actualTrackCount;
 
-  if (effectiveTrackCount > 14) {
+  if (effectiveTrackCount > IDEAL_ALBUM_TRACK_COUNT) {
     effectiveTrackCount = Math.max(
-      14,
+      IDEAL_ALBUM_TRACK_COUNT,
       effectiveTrackCount - qualityAdjustment
     );
   }
-  else if (effectiveTrackCount < 14) {
+  else if (effectiveTrackCount < IDEAL_ALBUM_TRACK_COUNT) {
     effectiveTrackCount = Math.min(
-      14,
+      IDEAL_ALBUM_TRACK_COUNT,
       effectiveTrackCount + qualityAdjustment
     );
   }
 
   let lengthScore = 10;
 
-  if (effectiveTrackCount < 14) {
-    lengthScore -= (14 - effectiveTrackCount) * 0.5;
+  if (effectiveTrackCount < IDEAL_ALBUM_TRACK_COUNT) {
+    lengthScore -= (IDEAL_ALBUM_TRACK_COUNT - effectiveTrackCount) * 0.5;
   }
-  else if (effectiveTrackCount > 14) {
-    lengthScore -= (effectiveTrackCount - 14) * 0.75;
+  else if (effectiveTrackCount > IDEAL_ALBUM_TRACK_COUNT) {
+    lengthScore -= (effectiveTrackCount - IDEAL_ALBUM_TRACK_COUNT) * 0.75;
   }
 
   lengthScore = Math.max(0, lengthScore);

@@ -1197,3 +1197,30 @@ main {
     display: none;
   }
 }
+
+/* Touch control for the S rating, alongside the numeric keyboard input. */
+.song-rating-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 5px;
+  width: 100%;
+}
+.song-rating-controls .rating-input { width: 100%; }
+.s-rating-btn {
+  min-height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #0d141b;
+  color: var(--text);
+  font: inherit;
+  font-weight: 780;
+  cursor: pointer;
+}
+.s-rating-btn[aria-pressed="true"] {
+  border-color: var(--purple);
+  color: var(--purple);
+  background: rgba(177, 76, 255, 0.12);
+}
+.s-rating-btn:focus-visible { outline: 2px solid var(--purple); outline-offset: 2px; }
+.s-rating-btn:disabled { opacity: 0.35; cursor: default; }

@@ -19,6 +19,13 @@ function getRatingColorClass(value) {
 }
 
 
+function getSongRatingColorClass(value) {
+  const rating = Number(value);
+  if (rating >= 9 && rating <= 10) return "rating-purple";
+  return getRatingColorClass(value);
+}
+
+
 function getAlbumScoreColorClass(value) {
   if (value === "" || value === null || value === undefined) {
     return "";
@@ -62,7 +69,7 @@ function formatAlbumScore(value, includeStar = false) {
 }
 
 
-function applyRatingColor(element, value, albumScore = false) {
+function applyRatingColor(element, value, albumScore = false, songScore = false) {
   element.classList.remove(
     "rating-red",
     "rating-orange",
@@ -75,7 +82,7 @@ function applyRatingColor(element, value, albumScore = false) {
 
   const colorClass = albumScore
     ? getAlbumScoreColorClass(value)
-    : getRatingColorClass(value);
+    : songScore ? getSongRatingColorClass(value) : getRatingColorClass(value);
 
   if (colorClass) {
     element.classList.add(colorClass);
@@ -205,7 +212,7 @@ function showAlbums(artistIndex) {
               <span>${escapeHtml(song.albumTitle)}</span>
             </div>
           </div>
-          <span class="rating-chip ${getRatingColorClass(song.rating)}">
+          <span class="rating-chip ${getSongRatingColorClass(song.rating)}">
             ${escapeHtml(song.rating)}
           </span>
         </div>
@@ -497,17 +504,27 @@ function renderTrackList(songs, container, options) {
         </div>
       </div>
 
+      <div class="song-rating-controls">
       <input
-        class="rating-input ${getRatingColorClass(song.rating)}"
+        aria-label="Song rating"
+        class="rating-input ${getSongRatingColorClass(song.rating)}"
         type="text"
         inputmode="decimal"
         placeholder="0-10 / S"
         value="${escapeHtml(song.rating)}"
         ${song.isSkit ? "disabled" : ""}
       >
+      <button type="button" class="s-rating-btn" aria-label="Rate song S" aria-pressed="${String(song.rating).toUpperCase() === "S"}" ${song.isSkit ? "disabled" : ""}>S</button>
+      </div>
     `;
 
     const ratingInput = row.querySelector(".rating-input");
+    const sRatingBtn = row.querySelector(".s-rating-btn");
+    sRatingBtn.addEventListener("click", () => {
+      if (song.isSkit) return;
+      ratingInput.value = "S";
+      ratingInput.dispatchEvent(new Event("change"));
+    });
     const skitInput = row.querySelector(".skit-option input");
     const editSongBtn = row.querySelector(".edit-song-btn");
     const deleteSongBtn = row.querySelector(".delete-song-btn");
@@ -517,7 +534,7 @@ function renderTrackList(songs, container, options) {
 
       if (value === "") {
         song.rating = "";
-        applyRatingColor(ratingInput, "");
+        applyRatingColor(ratingInput, "", false, true);
         saveData();
         options.onStatsUpdate();
         return;
@@ -538,7 +555,7 @@ function renderTrackList(songs, container, options) {
 
         song.rating = "S";
         ratingInput.value = "S";
-        applyRatingColor(ratingInput, "S");
+        applyRatingColor(ratingInput, "S", false, true);
         saveData();
         options.onStatsUpdate();
         return;
@@ -554,14 +571,19 @@ function renderTrackList(songs, container, options) {
 
       song.rating = number;
       ratingInput.value = number;
-      applyRatingColor(ratingInput, number);
+      applyRatingColor(ratingInput, number, false, true);
       saveData();
       options.onStatsUpdate();
+    });
+
+    ratingInput.addEventListener("change", () => {
+      sRatingBtn.setAttribute("aria-pressed", String(String(song.rating).toUpperCase() === "S"));
     });
 
     skitInput.addEventListener("change", () => {
       song.isSkit = skitInput.checked;
       ratingInput.disabled = song.isSkit;
+      sRatingBtn.disabled = song.isSkit;
       saveData();
       options.onStatsUpdate();
     });

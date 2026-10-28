@@ -59,9 +59,7 @@ function getArtistAverageColorClass(value) {
 
 
 function formatAlbumScore(value, includeStar = false) {
-  const rounded = Number(Number(value).toFixed(2));
-
-  if (rounded === 10) {
+  if (Number(value) >= 10) {
     return "PERFECT!";
   }
 
@@ -505,6 +503,7 @@ function renderTrackList(songs, container, options) {
       </div>
 
       <div class="song-rating-controls">
+      <button type="button" class="s-rating-btn" aria-label="Rate song S" aria-pressed="${String(song.rating).toUpperCase() === "S"}" ${song.isSkit ? "disabled" : ""}>S</button>
       <input
         aria-label="Song rating"
         class="rating-input ${getSongRatingColorClass(song.rating)}"
@@ -514,7 +513,6 @@ function renderTrackList(songs, container, options) {
         value="${escapeHtml(song.rating)}"
         ${song.isSkit ? "disabled" : ""}
       >
-      <button type="button" class="s-rating-btn" aria-label="Rate song S" aria-pressed="${String(song.rating).toUpperCase() === "S"}" ${song.isSkit ? "disabled" : ""}>S</button>
       </div>
     `;
 

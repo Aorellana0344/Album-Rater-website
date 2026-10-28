@@ -1201,14 +1201,19 @@ main {
 /* Touch control for the S rating, alongside the numeric keyboard input. */
 .song-rating-controls {
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 5px;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
   width: 100%;
+  min-width: 0;
 }
-.song-rating-controls .rating-input { width: 100%; }
+.song-rating-controls .rating-input { width: 0; min-width: 0; flex: 1; }
 .s-rating-btn {
-  min-height: 44px;
+  flex: 0 0 30px;
+  width: 30px;
+  height: 36px;
+  min-height: 36px;
+  padding: 0;
   border: 1px solid var(--border);
   border-radius: 8px;
   background: #0d141b;

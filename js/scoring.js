@@ -240,5 +240,23 @@ function getArtistTopSongs(artist, limit = 10) {
     return a.songIndex - b.songIndex;
   });
 
-  return songs.slice(0, limit);
+  // Keep scores descending, cycling albums within each tied rating.
+  const alternating = [];
+  for (let start = 0; start < songs.length;) {
+    let end = start;
+    const albums = new Map();
+    while (end < songs.length && songs[end].numericRating === songs[start].numericRating) {
+      const song = songs[end++];
+      if (!albums.has(song.albumIndex)) albums.set(song.albumIndex, []);
+      albums.get(song.albumIndex).push(song);
+    }
+    const queues = [...albums.values()];
+    for (let round = 0; queues.some(queue => round < queue.length); round++) {
+      queues.forEach(queue => {
+        if (round < queue.length) alternating.push(queue[round]);
+      });
+    }
+    start = end;
+  }
+  return alternating.slice(0, limit);
 }

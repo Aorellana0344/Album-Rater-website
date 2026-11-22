@@ -1270,3 +1270,10 @@ main {
 }
 
 .artist-player-card[data-tier="diamond"] { --card-accent:#a9eaff; }
+
+.album-share-dialog { color:#f5f7fa; background:#111923; border:1px solid #536176; border-radius:14px; width:min(440px,90vw); max-height:80vh; overflow:auto; padding:22px; }
+.album-share-dialog::backdrop { background:#000a; }
+.album-share-dialog label { display:block; padding:10px 0; }
+.album-share-dialog input { width:auto; display:inline-block; }
+.album-share-dialog button { margin:10px 8px 0 0; padding:10px; border-radius:8px; cursor:pointer; }
+#backupSection { flex-wrap:wrap; }

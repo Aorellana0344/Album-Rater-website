@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-title" content="Album Rater">
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="style-v11.css?v=21">
+  <link rel="stylesheet" href="style-v11.css?v=22">
   <style>html,body{background:#0d1117!important;color:#f5f7fa!important}</style>
 </head>
 <body>
@@ -45,6 +45,8 @@
     </section>
 
     <div id="backupSection">
+      <label for="importAlbumFile" class="importButton">Import Album</label>
+      <input id="importAlbumFile" type="file" accept=".json,application/json" hidden>
       <button id="exportBtn">Export Backup</button>
       <label for="importFile" class="importButton">Import Backup</label>
       <input id="importFile" type="file" accept=".json" hidden>
@@ -97,14 +99,15 @@
     </div>
   </div>
 
-  <script src="js/state.js?v=21"></script>
-  <script src="js/dom.js?v=21"></script>
-  <script src="js/scoring.js?v=21"></script>
-  <script src="js/storage.js?v=21"></script>
-  <script src="js/edit.js?v=21"></script>
-  <script src="js/views.js?v=21"></script>
-  <script src="js/backup.js?v=21"></script>
-  <script src="js/app.js?v=21"></script>
+  <script src="js/state.js?v=22"></script>
+  <script src="js/dom.js?v=22"></script>
+  <script src="js/scoring.js?v=22"></script>
+  <script src="js/storage.js?v=22"></script>
+  <script src="js/edit.js?v=22"></script>
+  <script src="js/views.js?v=22"></script>
+  <script src="js/album-sharing.js?v=22"></script>
+  <script src="js/backup.js?v=22"></script>
+  <script src="js/app.js?v=22"></script>
 
   <script>
     if ("serviceWorker" in navigator) {

@@ -1,16 +1,17 @@
-const CACHE_NAME = "album-rater-v21";
+const CACHE_NAME = "album-rater-v22";
 
 const FILES_TO_CACHE = [
   "./index.html",
-  "./style-v11.css?v=21",
-  "./js/state.js?v=21",
-  "./js/dom.js?v=21",
-  "./js/scoring.js?v=21",
-  "./js/storage.js?v=21",
-  "./js/edit.js?v=21",
-  "./js/views.js?v=21",
-  "./js/backup.js?v=21",
-  "./js/app.js?v=21",
+  "./style-v11.css?v=22",
+  "./js/state.js?v=22",
+  "./js/dom.js?v=22",
+  "./js/scoring.js?v=22",
+  "./js/storage.js?v=22",
+  "./js/edit.js?v=22",
+  "./js/views.js?v=22",
+  "./js/album-sharing.js?v=22",
+  "./js/backup.js?v=22",
+  "./js/app.js?v=22",
   "./manifest.webmanifest",
   "./assets/cards/diamond.png",
   "./assets/cards/purple.png",

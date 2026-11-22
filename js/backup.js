@@ -91,9 +91,13 @@ importFile.addEventListener(
       }
 
 
+      if (backup.artists.some(artist => !artist || typeof artist.name !== "string" || !Array.isArray(artist.albums) || artist.albums.some(album => !album || typeof album.title !== "string" || !Array.isArray(album.songs)))) {
+        throw new Error("Invalid backup structure");
+      }
+      const previousArtists = artists;
       artists = backup.artists;
-
-      await saveData();
+      try { await saveData(); }
+      catch (error) { artists = previousArtists; throw error; }
 
       showArtists();
 

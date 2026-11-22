@@ -39,6 +39,7 @@ function openDatabase() {
 
 async function saveData() {
   try {
+    reconnectSharedAlbums(artists);
     const db = await openDatabase();
 
     await new Promise((resolve, reject) => {
@@ -76,6 +77,7 @@ async function saveData() {
       "Could not save data:",
       error
     );
+    throw error;
   }
 }
 
@@ -123,6 +125,7 @@ async function loadData() {
     if (savedArtists) {
 
       artists = savedArtists;
+      reconnectSharedAlbums(artists);
 
       return;
 

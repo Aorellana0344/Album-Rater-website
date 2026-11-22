@@ -76,7 +76,7 @@ async function editAlbum(index) {
   const album = artist.albums[index];
 
   const action = prompt(
-    `Edit Album\n\nType:\n1 = Rename Album\n2 = Change Cover\n3 = Edit Tracklist\n4 = Delete Album`
+    `Edit Album\n\nType:\n1 = Rename Album\n2 = Change Cover\n3 = Edit Tracklist\n4 = Remove Album from This Artist\n5 = Add to Another Artist\n6 = Export This Album`
   );
 
   if (action === "1") {
@@ -159,13 +159,15 @@ async function editAlbum(index) {
   }
 
   else if (action === "4") {
-    const confirmed = confirm(`Delete ${album.title}?`);
+    const confirmed = confirm(`Remove ${album.title} from ${artist.name}? Other artist pages keep their copy.`);
     if (!confirmed) return;
 
     artist.albums.splice(index, 1);
     await saveData();
     showAlbums(currentArtistIndex);
   }
+  else if (action === "5") { shareAlbum(index); }
+  else if (action === "6") { exportSingleAlbum(index); }
 }
 
 
